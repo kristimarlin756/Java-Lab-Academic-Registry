@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kristi | My Java Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            background: #fbf8ef;
+            color: #173f35;
+            font-family: Arial, sans-serif;
+        }
+
+        .welcome {
+            padding: 35px 25px;
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .hero {
+            background: #173f35;
+            color: #fbf8ef;
+            padding: 40px 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .hero .small {
+            color: #d6c18e;
+            letter-spacing: 3px;
+            font-size: 13px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin: 15px 0;
+        }
+
+        .hero h2 {
+            color: #d6c18e;
+            font-weight: normal;
+            font-size: 20px;
+        }
+
+        .hero p {
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 15px auto;
+            color: #f1eadb;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #173f35;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px 16px;
+            border-top: 4px solid #b69b62;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(23, 63, 53, 0.08);
+        }
+
+        .card .symbol {
+            font-size: 30px;
+        }
+
+        .card h3 {
+            color: #173f35;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #65746b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .skills {
+            background: #e9e1cf;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 12px;
+        }
+
+        .skills h2 {
+            text-align: center;
+            color: #173f35;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .skill-list span {
+            background: #173f35;
+            color: #fbf8ef;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .closing {
+            text-align: center;
+            padding: 30px 15px;
+            margin-top: 25px;
+        }
+
+        .closing h2 {
+            color: #9b804d;
+        }
+
+        .closing p {
+            line-height: 1.8;
+            color: #52645b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #fbf8ef;
+            background: #173f35;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .welcome {
+                padding: 20px 12px;
+            }
+
+            .hero {
+                padding: 30px 15px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="welcome">
+
+    <div class="hero">
+        <div class="small">WELCOME TO MY DIGITAL SPACE</div>
+
+        <h1>Hello, I'm Kristi!</h1>
+
+        <h2>Learning Java · Building Skills · Growing Every Day</h2>
+
+        <p>
+            Welcome to my Java Lab Academic Registry.
+            I'm a student exploring the world of programming
+            through practical experiments, coding and creativity.
+            This space is a collection of my learning journey.
+        </p>
+    </div>
+
+    <h2 class="section-title">Explore My Journey</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="symbol">📚</div>
+            <h3>My Learning</h3>
+            <p>
+                Understanding Java concepts and developing
+                my programming knowledge step by step.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="symbol">💻</div>
+            <h3>Lab Experiments</h3>
+            <p>
+                A collection of my weekly laboratory
+                programs, source codes and outputs.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="symbol">🌱</div>
+            <h3>My Goals</h3>
+            <p>
+                Improving my coding skills, learning new
+                technologies and becoming a better developer.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="skills">
+        <h2>What I'm Exploring</h2>
+
+        <div class="skill-list">
+            <span>Java Programming</span>
+            <span>OOP Concepts</span>
+            <span>Problem Solving</span>
+            <span>Programming Logic</span>
+            <span>Practical Learning</span>
+        </div>
+    </div>
+
+    <div class="closing">
+        <h2>Every Program is a New Beginning!</h2>
+
+        <p>
+            This portfolio represents my effort, practice
+            and progress in learning Java.
+            Feel free to explore my weekly experiments
+            using the menu on the left.
+        </p>
+    </div>
+
+    <div class="footer">
+        Made with care by P. Kristi Marlin | Java Lab Academic Registry
+    </div>
+
+</div>
+
+</body>
+</html>
