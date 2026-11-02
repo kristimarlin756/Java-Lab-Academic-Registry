@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 11 - Character Streams and Multithreading</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+body{font-family:Arial,sans-serif;line-height:1.6;padding:15px}
+main{max-width:1000px;margin:auto}
+h1,h2,h3{color:#234b38}
+.experiment{background:#fff;border:1px solid #d9dfd5;border-radius:10px;margin:18px 0;overflow:hidden}
+.experiment summary{background:#f3f0df;padding:15px;font-weight:bold;cursor:pointer;color:#234b38}
+.content{padding:15px}
+pre{background:#17251e;color:#f5f5ed;padding:15px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
+code{font-family:Consolas,monospace;font-size:13px}
+.output{background:#f1f5ef;color:#26382b}
+.note{color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Week 11: Character Streams and Multithreaded Programming</h1>
+
+<!-- 1 -->
+<details class="experiment">
+<summary>Experiment 1: Keyboard Input Using Reader and Writer</summary>
+<div class="content">
+<p><b>Aim:</b> To read characters from the keyboard using Reader and display them using Writer.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class KeyboardDemo {
+    public static void main(String[] args) throws IOException {
+        Reader r = new InputStreamReader(System.in);
+        Writer w = new OutputStreamWriter(System.out);
+
+        System.out.print("Enter text: ");
+
+        int ch;
+        while ((ch = r.read()) != '\n' && ch != -1) {
+            w.write(ch);
+        }
+
+        w.flush();
+    }
+}</code></pre>
+<h3>Sample Output</h3>
+<pre class="output"><code>Enter text: Hello Java
+Hello Java</code></pre>
+</div>
+</details>
+
+<!-- 2 -->
+<details class="experiment">
+<summary>Experiment 2: Read a Text File Using FileReader</summary>
+<div class="content">
+<p><b>Aim:</b> To read the contents of a text file using FileReader.</p>
+<p class="note">Create a file named input.txt containing: Welcome to Java.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class ReadFile {
+    public static void main(String[] args) {
+        try {
+            FileReader fr = new FileReader("input.txt");
+
+            int ch;
+            while ((ch = fr.read()) != -1) {
+                System.out.print((char) ch);
+            }
+
+            fr.close();
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Welcome to Java</code></pre>
+</div>
+</details>
+
+<!-- 3 -->
+<details class="experiment">
+<summary>Experiment 3: Write Text into a File Using FileWriter</summary>
+<div class="content">
+<p><b>Aim:</b> To write text into a file using FileWriter.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class WriteFile {
+    public static void main(String[] args) {
+        try {
+            FileWriter fw = new FileWriter("output.txt");
+
+            fw.write("Hello Java Programming");
+
+            fw.close();
+
+            System.out.println("Data written successfully");
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Data written successfully</code></pre>
+<p class="note">The file output.txt will contain: Hello Java Programming</p>
+</div>
+</details>
+
+<!-- 4 -->
+<details class="experiment">
+<summary>Experiment 4: Copy One Text File into Another</summary>
+<div class="content">
+<p><b>Aim:</b> To copy the contents of one text file into another using FileReader and FileWriter.</p>
+<p class="note">Create input.txt containing: Java Programming.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class CopyTextFile {
+    public static void main(String[] args) {
+        try {
+            FileReader fr = new FileReader("input.txt");
+            FileWriter fw = new FileWriter("copy.txt");
+
+            int ch;
+            while ((ch = fr.read()) != -1) {
+                fw.write(ch);
+            }
+
+            fr.close();
+            fw.close();
+
+            System.out.println("File copied successfully");
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>File copied successfully</code></pre>
+</div>
+</details>
+
+<!-- 5 -->
+<details class="experiment">
+<summary>Experiment 5: Count Characters, Words and Lines in a File</summary>
+<div class="content">
+<p><b>Aim:</b> To count the number of characters, words and lines in a text file using character streams.</p>
+<p class="note">Create input.txt with the following two lines: Hello Java / Welcome Students</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class FileCount {
+    public static void main(String[] args) {
+        int characters = 0;
+        int words = 0;
+        int lines = 0;
+
+        try {
+            BufferedReader br =
+                new BufferedReader(new FileReader("input.txt"));
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                lines++;
+                characters += line.length();
+
+                String[] w = line.trim().split("\\s+");
+
+                if (!line.trim().isEmpty()) {
+                    words += w.length;
+                }
+            }
+
+            br.close();
+
+            System.out.println("Characters: " + characters);
+            System.out.println("Words: " + words);
+            System.out.println("Lines: " + lines);
+
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Characters: 26
+Words: 4
+Lines: 2</code></pre>
+<p class="note">Character count excludes newline characters.</p>
+</div>
+</details>
+
+<h2>Multithreading Experiments</h2>
+
+<!-- 6 -->
+<details class="experiment">
+<summary>Experiment 6: Demonstrate the Main Thread</summary>
+<div class="content">
+<p><b>Aim:</b> To display the name, priority and state of the main thread.</p>
+<h3>Program</h3>
+<pre><code>public class MainThreadDemo {
+    public static void main(String[] args) {
+        Thread t = Thread.currentThread();
+
+        System.out.println("Thread Name: " + t.getName());
+        System.out.println("Thread Priority: " + t.getPriority());
+        System.out.println("Thread State: " + t.getState());
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Thread Name: main
+Thread Priority: 5
+Thread State: RUNNABLE</code></pre>
+</div>
+</details>
+
+<!-- 7 -->
+<details class="experiment">
+<summary>Experiment 7: Create a Thread by Extending Thread Class</summary>
+<div class="content">
+<p><b>Aim:</b> To create a thread by extending the Thread class.</p>
+<h3>Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+public class ThreadDemo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        t.start();
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Thread is running</code></pre>
+</div>
+</details>
+
+<!-- 8 -->
+<details class="experiment">
+<summary>Experiment 8: Create a Thread Using Runnable Interface</summary>
+<div class="content">
+<p><b>Aim:</b> To create a thread by implementing the Runnable interface.</p>
+<h3>Program</h3>
+<pre><code>class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Runnable thread is running");
+    }
+}
+
+public class RunnableDemo {
+    public static void main(String[] args) {
+        MyRunnable obj = new MyRunnable();
+
+        Thread t = new Thread(obj);
+        t.start();
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Runnable thread is running</code></pre>
+</div>
+</details>
+
+<!-- 9 -->
+<details class="experiment">
+<summary>Experiment 9: Create Multiple Threads</summary>
+<div class="content">
+<p><b>Aim:</b> To create multiple threads and demonstrate concurrent execution.</p>
+<h3>Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println(getName() + " is running");
+    }
+}
+
+public class MultipleThreads {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+        MyThread t3 = new MyThread();
+
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}</code></pre>
+<h3>Sample Output</h3>
+<pre class="output"><code>Thread-0 is running
+Thread-1 is running
+Thread-2 is running</code></pre>
+<p class="note">The order of thread execution may change each time you run the program.</p>
+</div>
+</details>
+
+<!-- 10 -->
+<details class="experiment">
+<summary>Experiment 10: Use of isAlive() Method</summary>
+<div class="content">
+<p><b>Aim:</b> To check whether a thread is running using the isAlive() method.</p>
+<h3>Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+public class IsAliveDemo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+
+        System.out.println("Before start: " + t.isAlive());
+
+        t.start();
+
+        System.out.println("After start: " + t.isAlive());
+
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        System.out.println("After completion: " + t.isAlive());
+    }
+}</code></pre>
+<h3>Sample Output</h3>
+<pre class="output"><code>Before start: false
+Thread is running
+After start: true
+After completion: false</code></pre>
+<p class="note">The thread may finish before the second isAlive() check on a very fast system. The sample output shows the usual result.</p>
+</div>
+</details>
+
+<!-- 11 -->
+<details class="experiment">
+<summary>Experiment 11: Use of join() Method</summary>
+<div class="content">
+<p><b>Aim:</b> To make one thread wait for another thread to complete using join().</p>
+<h3>Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 3; i++) {
+            System.out.println("Child Thread: " + i);
+        }
+    }
+}
+
+public class JoinDemo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+
+        t.start();
+
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        System.out.println("Main thread continues");
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Child Thread: 1
+Child Thread: 2
+Child Thread: 3
+Main thread continues</code></pre>
+</div>
+</details>
+
+<!-- 12 -->
+<details class="experiment">
+<summary>Experiment 12: Multiple Threads Using isAlive() and join()</summary>
+<div class="content">
+<p><b>Aim:</b> To create multiple threads and control their execution using isAlive() and join().</p>
+<h3>Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 3; i++) {
+            System.out.println(getName() + ": " + i);
+        }
+    }
+}
+
+public class ThreadControl {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+
+        t1.start();
+        t2.start();
+
+        System.out.println("Thread 1 Alive: " + t1.isAlive());
+        System.out.println("Thread 2 Alive: " + t2.isAlive());
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        System.out.println("Thread 1 Alive: " + t1.isAlive());
+        System.out.println("Thread 2 Alive: " + t2.isAlive());
+
+        System.out.println("Main thread completed");
+    }
+}</code></pre>
+<h3>Sample Output</h3>
+<pre class="output"><code>Thread 1 Alive: true
+Thread 2 Alive: true
+Thread-0: 1
+Thread-0: 2
+Thread-0: 3
+Thread-1: 1
+Thread-1: 2
+Thread-1: 3
+Thread 1 Alive: false
+Thread 2 Alive: false
+Main thread completed</code></pre>
+<p class="note">The order of thread messages can vary because both threads execute concurrently.</p>
+</div>
+</details>
+
+</main>
+</body>
+</html>
