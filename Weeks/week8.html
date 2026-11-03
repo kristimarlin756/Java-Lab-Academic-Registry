@@ -1,0 +1,850 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 8 | Java Lab Academic Registry</title>
+<link rel="stylesheet" href="../style.css">
+
+<style>
+body {
+    background: #f7f5e9;
+    color: #263b2b;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+}
+header {
+    background: #244832;
+    color: #fff8e7;
+    padding: 30px 20px;
+    border-bottom: 5px solid #c5a45b;
+}
+header h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+header p {
+    margin: 0;
+    color: #e8e0c9;
+}
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 18px 40px;
+}
+.intro {
+    background: #fffdf5;
+    border-left: 5px solid #c5a45b;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+}
+h2 {
+    color: #244832;
+    margin-bottom: 18px;
+}
+.experiment {
+    background: #fffdf5;
+    border: 1px solid #e2dcc9;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 7px rgba(36,72,50,0.06);
+}
+summary {
+    padding: 17px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #244832;
+    font-size: 16px;
+}
+summary:hover {
+    background: #f0eee1;
+}
+.experiment[open] summary {
+    border-bottom: 1px solid #e2dcc9;
+    background: #f0eee1;
+}
+.description {
+    padding: 12px 20px 0;
+    color: #657263;
+}
+h3 {
+    color: #315b3c;
+    margin: 18px 20px 8px;
+    font-size: 15px;
+}
+pre {
+    background: #1d2d23;
+    color: #f5f1df;
+    padding: 18px;
+    margin: 10px 16px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre;
+}
+.output {
+    background: #eeeadd;
+    color: #263b2b;
+    padding: 14px;
+    margin: 10px 16px 18px;
+    border-left: 4px solid #c5a45b;
+    border-radius: 6px;
+}
+.output pre {
+    background: transparent;
+    color: #263b2b;
+    padding: 0;
+    margin: 0;
+}
+footer {
+    text-align: center;
+    padding: 22px;
+    color: #657263;
+    border-top: 1px solid #ded8c4;
+}
+@media(max-width:600px) {
+    header h1 { font-size: 22px; }
+    main { padding: 0 12px 30px; }
+    summary { font-size: 14px; }
+    pre { font-size: 12px; padding: 13px; margin: 8px; }
+    .output { margin: 8px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Week 8 – Inheritance</h1>
+    <p>Java Lab Academic Registry</p>
+</header>
+
+<main>
+
+<div class="intro">
+    <strong>Week 8: Inheritance</strong>
+    <p>Inheritance is an important feature of Java that allows one class to acquire the properties and methods of another class.</p>
+    <p><strong>Total Programs:</strong> 10</p>
+</div>
+
+<h2>Java Lab Programs</h2>
+
+<details class="experiment">
+<summary>Program 1: Single Inheritance</summary>
+<p class="description">Create a Person superclass and a Student subclass to display student details.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Person {
+    String name;
+    int age;
+
+    void getPersonDetails(Scanner sc) {
+        System.out.print("Enter name: ");
+        name = sc.nextLine();
+
+        System.out.print("Enter age: ");
+        age = sc.nextInt();
+    }
+}
+
+class Student extends Person {
+    int rollNo;
+    String branch;
+
+    void getStudentDetails(Scanner sc) {
+        System.out.print("Enter roll number: ");
+        rollNo = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter branch: ");
+        branch = sc.nextLine();
+    }
+
+    void display() {
+        System.out.println("\n--- Student Details ---");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Roll Number: " + rollNo);
+        System.out.println("Branch: " + branch);
+    }
+}
+
+public class SingleInheritance {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Student s = new Student();
+        s.getPersonDetails(sc);
+        s.getStudentDetails(sc);
+        s.display();
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter name: Kristi
+Enter age: 18
+Enter roll number: 109
+Enter branch: AI & ML
+
+--- Student Details ---
+Name: Kristi
+Age: 18
+Roll Number: 109
+Branch: AI & ML</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 2: Using super Keyword</summary>
+<p class="description">Demonstrate the use of super to access superclass variables and methods.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Vehicle {
+    int speed;
+
+    Vehicle(int speed) {
+        this.speed = speed;
+    }
+
+    void display() {
+        System.out.println("Vehicle Speed: " + speed + " km/h");
+    }
+}
+
+class Car extends Vehicle {
+    String model;
+
+    Car(int speed, String model) {
+        super(speed);
+        this.model = model;
+    }
+
+    void display() {
+        super.display();
+        System.out.println("Car Model: " + model);
+        System.out.println("Super Speed: " + super.speed + " km/h");
+    }
+}
+
+public class SuperKeywordDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter car speed: ");
+        int speed = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter car model: ");
+        String model = sc.nextLine();
+
+        Car c = new Car(speed, model);
+        c.display();
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter car speed: 120
+Enter car model: BMW
+Vehicle Speed: 120 km/h
+Car Model: BMW
+Super Speed: 120 km/h</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 3: Multilevel Inheritance</summary>
+<p class="description">Create Person, Employee and Manager classes to demonstrate multilevel inheritance.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Person {
+    String name;
+    int age;
+
+    void getPerson(Scanner sc) {
+        System.out.print("Enter name: ");
+        name = sc.nextLine();
+
+        System.out.print("Enter age: ");
+        age = sc.nextInt();
+        sc.nextLine();
+    }
+}
+
+class Employee extends Person {
+    int empId;
+    double salary;
+
+    void getEmployee(Scanner sc) {
+        System.out.print("Enter employee ID: ");
+        empId = sc.nextInt();
+
+        System.out.print("Enter salary: ");
+        salary = sc.nextDouble();
+        sc.nextLine();
+    }
+}
+
+class Manager extends Employee {
+    String department;
+
+    void getManager(Scanner sc) {
+        System.out.print("Enter department: ");
+        department = sc.nextLine();
+    }
+
+    void display() {
+        System.out.println("\n--- Manager Details ---");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Employee ID: " + empId);
+        System.out.println("Salary: " + salary);
+        System.out.println("Department: " + department);
+    }
+}
+
+public class MultilevelInheritance {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Manager m = new Manager();
+        m.getPerson(sc);
+        m.getEmployee(sc);
+        m.getManager(sc);
+        m.display();
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter name: Rahul
+Enter age: 30
+Enter employee ID: 101
+Enter salary: 50000
+Enter department: IT
+
+--- Manager Details ---
+Name: Rahul
+Age: 30
+Employee ID: 101
+Salary: 50000.0
+Department: IT</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 4: Method Overriding</summary>
+<p class="description">Demonstrate method overriding using Animal, Dog and Cat classes.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog says: Woof Woof");
+    }
+}
+
+class Cat extends Animal {
+    void sound() {
+        System.out.println("Cat says: Meow Meow");
+    }
+}
+
+public class MethodOverriding {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter animal (dog/cat): ");
+        String choice = sc.nextLine();
+
+        Animal animal;
+
+        if (choice.equalsIgnoreCase("dog")) {
+            animal = new Dog();
+        } else if (choice.equalsIgnoreCase("cat")) {
+            animal = new Cat();
+        } else {
+            System.out.println("Invalid animal.");
+            sc.close();
+            return;
+        }
+
+        animal.sound();
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter animal (dog/cat): dog
+Dog says: Woof Woof</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 5: Dynamic Method Dispatch</summary>
+<p class="description">Use a superclass reference to call the overridden draw() method at runtime.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Shape {
+    void draw() {
+        System.out.println("Drawing a shape");
+    }
+}
+
+class Circle extends Shape {
+    void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+class Rectangle extends Shape {
+    void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+
+class Triangle extends Shape {
+    void draw() {
+        System.out.println("Drawing a Triangle");
+    }
+}
+
+public class DynamicMethodDispatch {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter shape (circle/rectangle/triangle): ");
+        String choice = sc.nextLine();
+
+        Shape shape;
+
+        if (choice.equalsIgnoreCase("circle")) {
+            shape = new Circle();
+        } else if (choice.equalsIgnoreCase("rectangle")) {
+            shape = new Rectangle();
+        } else if (choice.equalsIgnoreCase("triangle")) {
+            shape = new Triangle();
+        } else {
+            System.out.println("Invalid shape.");
+            sc.close();
+            return;
+        }
+
+        shape.draw();
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter shape (circle/rectangle/triangle): circle
+Drawing a Circle</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 6: super with Method Overriding</summary>
+<p class="description">Use super.display() to call the superclass method from the subclass.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Employee {
+    String name;
+    double salary;
+
+    Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    void display() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Salary: " + salary);
+    }
+}
+
+class Manager extends Employee {
+    String department;
+
+    Manager(String name, double salary, String department) {
+        super(name, salary);
+        this.department = department;
+    }
+
+    void display() {
+        super.display();
+        System.out.println("Department: " + department);
+    }
+}
+
+public class SuperMethodOverriding {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter manager name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter salary: ");
+        double salary = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.print("Enter department: ");
+        String department = sc.nextLine();
+
+        Manager m = new Manager(name, salary, department);
+
+        System.out.println("\n--- Manager Details ---");
+        m.display();
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter manager name: Arun
+Enter salary: 60000
+Enter department: Finance
+
+--- Manager Details ---
+Employee Name: Arun
+Salary: 60000.0
+Department: Finance</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 7: Multilevel Inheritance for Salary Calculation</summary>
+<p class="description">Calculate total salary using Employee, Developer and SeniorDeveloper classes.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Employee {
+    double basicSalary;
+
+    void getBasicSalary(Scanner sc) {
+        System.out.print("Enter basic salary: ");
+        basicSalary = sc.nextDouble();
+    }
+}
+
+class Developer extends Employee {
+    double programmingAllowance;
+
+    void getProgrammingAllowance(Scanner sc) {
+        System.out.print("Enter programming allowance: ");
+        programmingAllowance = sc.nextDouble();
+    }
+}
+
+class SeniorDeveloper extends Developer {
+    double projectAllowance;
+
+    void getProjectAllowance(Scanner sc) {
+        System.out.print("Enter project allowance: ");
+        projectAllowance = sc.nextDouble();
+    }
+
+    void displaySalary() {
+        double total = basicSalary +
+                       programmingAllowance +
+                       projectAllowance;
+
+        System.out.println("\n--- Salary Details ---");
+        System.out.println("Basic Salary: " + basicSalary);
+        System.out.println("Programming Allowance: " + programmingAllowance);
+        System.out.println("Project Allowance: " + projectAllowance);
+        System.out.println("Total Salary: " + total);
+    }
+}
+
+public class SalaryCalculation {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        SeniorDeveloper sd = new SeniorDeveloper();
+
+        sd.getBasicSalary(sc);
+        sd.getProgrammingAllowance(sc);
+        sd.getProjectAllowance(sc);
+        sd.displaySalary();
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter basic salary: 40000
+Enter programming allowance: 10000
+Enter project allowance: 5000
+
+--- Salary Details ---
+Basic Salary: 40000.0
+Programming Allowance: 10000.0
+Project Allowance: 5000.0
+Total Salary: 55000.0</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 8: Dynamic Method Dispatch for Bank Accounts</summary>
+<p class="description">Calculate interest using SavingsAccount and CurrentAccount subclasses.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class BankAccount {
+    double balance;
+
+    BankAccount(double balance) {
+        this.balance = balance;
+    }
+
+    void calculateInterest() {
+        System.out.println("General bank interest calculation");
+    }
+}
+
+class SavingsAccount extends BankAccount {
+    SavingsAccount(double balance) {
+        super(balance);
+    }
+
+    void calculateInterest() {
+        double interest = balance * 0.04;
+        System.out.println("Savings Account Interest: " + interest);
+    }
+}
+
+class CurrentAccount extends BankAccount {
+    CurrentAccount(double balance) {
+        super(balance);
+    }
+
+    void calculateInterest() {
+        double interest = balance * 0.02;
+        System.out.println("Current Account Interest: " + interest);
+    }
+}
+
+public class BankDynamicDispatch {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter account type (savings/current): ");
+        String type = sc.nextLine();
+
+        System.out.print("Enter balance: ");
+        double balance = sc.nextDouble();
+
+        BankAccount account;
+
+        if (type.equalsIgnoreCase("savings")) {
+            account = new SavingsAccount(balance);
+        } else if (type.equalsIgnoreCase("current")) {
+            account = new CurrentAccount(balance);
+        } else {
+            System.out.println("Invalid account type.");
+            sc.close();
+            return;
+        }
+
+        account.calculateInterest();
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter account type (savings/current): savings
+Enter balance: 10000
+Savings Account Interest: 400.0</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 9: Constructor Execution in Multilevel Inheritance</summary>
+<p class="description">Demonstrate the order of constructor execution in Person, Student and GraduateStudent.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class Person {
+    Person(String name) {
+        System.out.println("Person constructor executed");
+        System.out.println("Name: " + name);
+    }
+}
+
+class Student extends Person {
+    Student(String name, int rollNo) {
+        super(name);
+        System.out.println("Student constructor executed");
+        System.out.println("Roll Number: " + rollNo);
+    }
+}
+
+class GraduateStudent extends Student {
+    GraduateStudent(String name, int rollNo, String course) {
+        super(name, rollNo);
+        System.out.println("GraduateStudent constructor executed");
+        System.out.println("Course: " + course);
+    }
+}
+
+public class ConstructorInheritance {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter roll number: ");
+        int rollNo = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter course: ");
+        String course = sc.nextLine();
+
+        System.out.println("\n--- Constructor Execution Order ---");
+
+        new GraduateStudent(name, rollNo, course);
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter name: Kristi
+Enter roll number: 109
+Enter course: BTech
+
+--- Constructor Execution Order ---
+Person constructor executed
+Name: Kristi
+Student constructor executed
+Roll Number: 109
+GraduateStudent constructor executed
+Course: BTech</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 10: Banking Application Using Inheritance</summary>
+<p class="description">Create a simple banking application using BankAccount, SavingsAccount and CurrentAccount.</p>
+<h3>Java Program</h3>
+<pre><code>import java.util.Scanner;
+
+class BankAccount {
+    String accountNumber;
+    double balance;
+
+    BankAccount(String accountNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount);
+    }
+
+    void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance.");
+        }
+    }
+
+    void calculateInterest() {
+        System.out.println("General interest calculation");
+    }
+
+    void displayBalance() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Current Balance: " + balance);
+    }
+}
+
+class SavingsAccount extends BankAccount {
+    SavingsAccount(String accountNumber, double balance) {
+        super(accountNumber, balance);
+    }
+
+    void calculateInterest() {
+        double interest = balance * 0.05;
+        System.out.println("Savings Interest: " + interest);
+    }
+}
+
+class CurrentAccount extends BankAccount {
+    CurrentAccount(String accountNumber, double balance) {
+        super(accountNumber, balance);
+    }
+
+    void calculateInterest() {
+        double interest = balance * 0.02;
+        System.out.println("Current Account Interest: " + interest);
+    }
+}
+
+public class BankingApplication {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter account type (savings/current): ");
+        String type = sc.nextLine();
+
+        System.out.print("Enter account number: ");
+        String accountNumber = sc.nextLine();
+
+        System.out.print("Enter initial balance: ");
+        double balance = sc.nextDouble();
+
+        BankAccount account;
+
+        if (type.equalsIgnoreCase("savings")) {
+            account = new SavingsAccount(accountNumber, balance);
+        } else if (type.equalsIgnoreCase("current")) {
+            account = new CurrentAccount(accountNumber, balance);
+        } else {
+            System.out.println("Invalid account type.");
+            sc.close();
+            return;
+        }
+
+        System.out.print("Enter deposit amount: ");
+        double deposit = sc.nextDouble();
+        account.deposit(deposit);
+
+        System.out.print("Enter withdrawal amount: ");
+        double withdrawal = sc.nextDouble();
+        account.withdraw(withdrawal);
+
+        System.out.println();
+        account.calculateInterest();
+        account.displayBalance();
+
+        sc.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter account type (savings/current): savings
+Enter account number: 101
+Enter initial balance: 10000
+Enter deposit amount: 2000
+Deposited: 2000.0
+Enter withdrawal amount: 1000
+Withdrawn: 1000.0
+
+Savings Interest: 550.0
+Account Number: 101
+Current Balance: 11000.0</pre></div>
+</details>
+
+</main>
+
+<footer>
+    Week 8 · Java Lab Academic Registry
+</footer>
+
+</body>
+</html>
