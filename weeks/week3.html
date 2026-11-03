@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Week 3 - Java Programs</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<h1>Week 3 – Java Lab Programs</h1>
+
+<div class="card">
+<h2>Program 1: Basic Java Program</h2>
+<p>Write a Java program to display "Hello, Java!" and demonstrate the basic structure of a Java program.</p>
+<pre>public class HelloJava {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Hello, Java!</pre>
+</div>
+
+<div class="card">
+<h2>Program 2: Primitive Data Types</h2>
+<p>Declare variables of different primitive data types and display their values.</p>
+<pre>public class DataTypesDemo {
+    public static void main(String[] args) {
+        byte b = 10;
+        short s = 2000;
+        int i = 50000;
+        long l = 1000000000L;
+        float f = 12.5f;
+        double d = 123.456;
+        char c = 'A';
+        boolean flag = true;
+
+        System.out.println("Byte: " + b);
+        System.out.println("Short: " + s);
+        System.out.println("Int: " + i);
+        System.out.println("Long: " + l);
+        System.out.println("Float: " + f);
+        System.out.println("Double: " + d);
+        System.out.println("Char: " + c);
+        System.out.println("Boolean: " + flag);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Byte: 10
+Short: 2000
+Int: 50000
+Long: 1000000000
+Float: 12.5
+Double: 123.456
+Char: A
+Boolean: true</pre>
+</div>
+
+<div class="card">
+<h2>Program 3: Integer Arithmetic Operations</h2>
+<p>Perform addition, subtraction, multiplication, division and modulus on two integer variables.</p>
+<pre>public class ArithmeticOperations {
+    public static void main(String[] args) {
+        int a = 20;
+        int b = 6;
+
+        System.out.println("Addition = " + (a + b));
+        System.out.println("Subtraction = " + (a - b));
+        System.out.println("Multiplication = " + (a * b));
+        System.out.println("Division = " + (a / b));
+        System.out.println("Modulus = " + (a % b));
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Addition = 26
+Subtraction = 14
+Multiplication = 120
+Division = 3
+Modulus = 2</pre>
+</div>
+
+<div class="card">
+<h2>Program 4: Floating-Point Arithmetic</h2>
+<p>Perform arithmetic operations on floating-point numbers and display the results.</p>
+<pre>public class FloatArithmetic {
+    public static void main(String[] args) {
+        float a = 10.5f;
+        float b = 2.5f;
+
+        System.out.println("Addition = " + (a + b));
+        System.out.println("Subtraction = " + (a - b));
+        System.out.println("Multiplication = " + (a * b));
+        System.out.println("Division = " + (a / b));
+        System.out.println("Modulus = " + (a % b));
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Addition = 13.0
+Subtraction = 8.0
+Multiplication = 26.25
+Division = 4.2
+Modulus = 0.5</pre>
+</div>
+
+<div class="card">
+<h2>Program 5: Character and ASCII/Unicode Value</h2>
+<pre>public class CharacterDemo {
+    public static void main(String[] args) {
+        char ch = 'A';
+
+        System.out.println("Character = " + ch);
+        System.out.println("ASCII/Unicode Value = " + (int) ch);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Character = A
+ASCII/Unicode Value = 65</pre>
+</div>
+
+<div class="card">
+<h2>Program 6: Boolean Variables and Expressions</h2>
+<pre>public class BooleanDemo {
+    public static void main(String[] args) {
+        boolean isJavaFun = true;
+        boolean isGreater = (10 > 5);
+
+        System.out.println("isJavaFun = " + isJavaFun);
+        System.out.println("10 > 5 = " + isGreater);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>isJavaFun = true
+10 > 5 = true</pre>
+</div>
+
+<div class="card">
+<h2>Program 7: Different Types of Variables</h2>
+<pre>public class VariablesDemo {
+    public static void main(String[] args) {
+        int age = 20;
+        float height = 5.8f;
+        double salary = 25000.50;
+        char grade = 'A';
+        boolean passed = true;
+        String name = "John";
+
+        System.out.println("Name = " + name);
+        System.out.println("Age = " + age);
+        System.out.println("Height = " + height);
+        System.out.println("Salary = " + salary);
+        System.out.println("Grade = " + grade);
+        System.out.println("Passed = " + passed);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Name = John
+Age = 20
+Height = 5.8
+Salary = 25000.5
+Grade = A
+Passed = true</pre>
+</div>
+
+<div class="card">
+<h2>Program 8: Swapping Two Numbers</h2>
+<pre>public class SwapNumbers {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        int temp;
+
+        System.out.println("Before Swapping:");
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+
+        temp = a;
+        a = b;
+        b = temp;
+
+        System.out.println("After Swapping:");
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Before Swapping:
+a = 10
+b = 20
+After Swapping:
+a = 20
+b = 10</pre>
+</div>
+
+<div class="card">
+<h2>Program 9: Widening Type Conversion</h2>
+<pre>public class WideningTypeConversion {
+    public static void main(String[] args) {
+        int num = 100;
+        double result = num;
+
+        System.out.println("Integer value = " + num);
+        System.out.println("Double value = " + result);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Integer value = 100
+Double value = 100.0</pre>
+</div>
+
+<div class="card">
+<h2>Program 10: Narrowing Type Casting</h2>
+<pre>public class NarrowingTypeCasting {
+    public static void main(String[] args) {
+        double num = 123.45;
+        int result = (int) num;
+
+        System.out.println("Double value = " + num);
+        System.out.println("Integer value = " + result);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Double value = 123.45
+Integer value = 123</pre>
+</div>
+
+<div class="card">
+<h2>Program 11: Character and Integer Conversion</h2>
+<pre>public class CharAsciiConversion {
+    public static void main(String[] args) {
+        char ch = 'B';
+        int ascii = (int) ch;
+
+        System.out.println("Character = " + ch);
+        System.out.println("ASCII/Unicode value = " + ascii);
+
+        int value = 67;
+        char character = (char) value;
+
+        System.out.println("Integer value = " + value);
+        System.out.println("Character = " + character);
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Character = B
+ASCII/Unicode value = 66
+Integer value = 67
+Character = C</pre>
+</div>
+
+<div class="card">
+<h2>Program 12: Even or Odd</h2>
+<pre>import java.util.Scanner;
+
+public class EvenOddCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        if (num % 2 == 0) {
+            System.out.println(num + " is Even");
+        } else {
+            System.out.println(num + " is Odd");
+        }
+
+        sc.close();
+    }
+}</pre>
+<p><b>Sample Output:</b></p>
+<pre>Enter a number: 8
+8 is Even</pre>
+</div>
+
+<div class="card">
+<h2>Program 13: Largest of Two Numbers</h2>
+<pre>import java.util.Scanner;
+
+public class LargestOfTwo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        if (a > b) {
+            System.out.println(a + " is the largest number");
+        } else if (b > a) {
+            System.out.println(b + " is the largest number");
+        } else {
+            System.out.println("Both numbers are equal");
+        }
+
+        sc.close();
+    }
+}</pre>
+<p><b>Sample Output:</b></p>
+<pre>Enter first number: 10
+Enter second number: 20
+20 is the largest number</pre>
+</div>
+
+<div class="card">
+<h2>Program 14: Java Reserved Keywords</h2>
+<pre>public class KeywordDemo {
+    public static void main(String[] args) {
+        int age = 20;
+        float salary = 25000.50f;
+        char grade = 'A';
+
+        System.out.println("Age = " + age);
+        System.out.println("Salary = " + salary);
+        System.out.println("Grade = " + grade);
+
+        System.out.println("\nExplanation:");
+        System.out.println("Keywords like 'class', 'if', 'public' are reserved by Java.");
+        System.out.println("They have predefined meanings in the language syntax.");
+        System.out.println("Therefore, they cannot be used as variable names.");
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>Age = 20
+Salary = 25000.5
+Grade = A
+
+Explanation:
+Keywords like 'class', 'if', 'public' are reserved by Java.
+They have predefined meanings in the language syntax.
+Therefore, they cannot be used as variable names.</pre>
+</div>
+
+<div class="card">
+<h2>Program 15: For Loop</h2>
+<pre>public class ForLoopDemo {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i);
+        }
+    }
+}</pre>
+<p><b>Output:</b></p>
+<pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre>
+</div>
+
+<p><a href="../main.html">Back to Home</a></p>
+
+</body>
+</html>

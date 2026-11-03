@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 12 | Java Lab Academic Registry</title>
+<link rel="stylesheet" href="../style.css">
+
+<style>
+body {
+    background: #f7f5e9;
+    color: #263b2b;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+}
+header {
+    background: #244832;
+    color: #fff8e7;
+    padding: 30px 20px;
+    border-bottom: 5px solid #c5a45b;
+}
+header h1 { margin: 0 0 8px; font-size: 28px; }
+header p { margin: 0; color: #e8e0c9; }
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 18px 40px;
+}
+.intro {
+    background: #fffdf5;
+    border-left: 5px solid #c5a45b;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+}
+h2 { color: #244832; margin-bottom: 18px; }
+.experiment {
+    background: #fffdf5;
+    border: 1px solid #e2dcc9;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 7px rgba(36,72,50,0.06);
+}
+summary {
+    padding: 17px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #244832;
+    font-size: 16px;
+}
+summary:hover { background: #f0eee1; }
+.experiment[open] summary {
+    border-bottom: 1px solid #e2dcc9;
+    background: #f0eee1;
+}
+.description { padding: 12px 20px 0; color: #657263; }
+h3 {
+    color: #315b3c;
+    margin: 18px 20px 8px;
+    font-size: 15px;
+}
+pre {
+    background: #1d2d23;
+    color: #f5f1df;
+    padding: 18px;
+    margin: 10px 16px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre;
+}
+.output {
+    background: #eeeadd;
+    color: #263b2b;
+    padding: 14px;
+    margin: 10px 16px 18px;
+    border-left: 4px solid #c5a45b;
+    border-radius: 6px;
+}
+.output pre {
+    background: transparent;
+    color: #263b2b;
+    padding: 0;
+    margin: 0;
+}
+footer {
+    text-align: center;
+    padding: 22px;
+    color: #657263;
+    border-top: 1px solid #ded8c4;
+}
+@media(max-width:600px) {
+    header h1 { font-size: 22px; }
+    main { padding: 0 12px 30px; }
+    summary { font-size: 14px; }
+    pre { font-size: 12px; padding: 13px; margin: 8px; }
+    .output { margin: 8px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Week 12 – Character Streams and Multithreading</h1>
+    <p>Java Lab Academic Registry</p>
+</header>
+
+<main>
+
+<div class="intro">
+    <strong>Week 12: Character Streams and Multithreaded Programming</strong>
+    <p>This week covers reading and writing characters using Java streams and creating and controlling threads.</p>
+    <p><strong>Programs:</strong> 12</p>
+</div>
+
+<h2>Java Lab Programs</h2>
+
+<details class="experiment">
+<summary>Program 1: Read Characters Using Reader and Writer</summary>
+<p class="description">Read characters from the keyboard using Reader and display them on the console using Writer.</p>
+<h3>Java Program</h3>
+<pre><code>import java.io.*;
+
+public class ReaderWriterDemo {
+    public static void main(String[] args) throws IOException {
+        Reader r = new InputStreamReader(System.in);
+        Writer w = new OutputStreamWriter(System.out);
+
+        System.out.print("Enter a character: ");
+
+        int ch = r.read();
+
+        w.write("Entered character: ");
+        w.write(ch);
+        w.flush();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Enter a character: A
+Entered character: A</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 2: Read a Text File Using FileReader</summary>
+<p class="description">Read the contents of a text file and display them on the console.</p>
+<h3>Java Program</h3>
+<pre><code>import java.io.*;
+
+public class FileReadDemo {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("sample.txt");
+
+        int ch;
+
+        while ((ch = fr.read()) != -1) {
+            System.out.print((char) ch);
+        }
+
+        fr.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Contents of sample.txt:
+
+Welcome to Java.
+Character Streams Example.</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 3: Write Text into a File Using FileWriter</summary>
+<p class="description">Write text into a file using the FileWriter class.</p>
+<h3>Java Program</h3>
+<pre><code>import java.io.*;
+
+public class FileWriteDemo {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter("sample.txt");
+
+        fw.write("Welcome to Java Programming.");
+
+        fw.close();
+
+        System.out.println("Data written successfully.");
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Data written successfully.
+
+File content:
+Welcome to Java Programming.</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 4: Copy Contents from One File to Another</summary>
+<p class="description">Copy the contents of one text file into another using FileReader and FileWriter.</p>
+<h3>Java Program</h3>
+<pre><code>import java.io.*;
+
+public class FileCopyDemo {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("source.txt");
+        FileWriter fw = new FileWriter("destination.txt");
+
+        int ch;
+
+        while ((ch = fr.read()) != -1) {
+            fw.write(ch);
+        }
+
+        fr.close();
+        fw.close();
+
+        System.out.println("File copied successfully.");
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>File copied successfully.</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 5: Count Characters, Words and Lines in a File</summary>
+<p class="description">Count the number of characters, words and lines in a text file using character streams.</p>
+<h3>Java Program</h3>
+<pre><code>import java.io.*;
+
+public class FileCount {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("sample.txt");
+
+        int ch, characters = 0, words = 0, lines = 0;
+        boolean inWord = false;
+
+        while ((ch = fr.read()) != -1) {
+            characters++;
+
+            if (ch == '\n') {
+                lines++;
+            }
+
+            if (Character.isWhitespace(ch)) {
+                inWord = false;
+            } else if (!inWord) {
+                words++;
+                inWord = true;
+            }
+        }
+
+        fr.close();
+
+        System.out.println("Characters: " + characters);
+        System.out.println("Words: " + words);
+        System.out.println("Lines: " + lines);
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Characters: 30
+Words: 5
+Lines: 2</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 6: Demonstrate the Main Thread</summary>
+<p class="description">Display the name, priority and state of the main thread.</p>
+<h3>Java Program</h3>
+<pre><code>public class MainThreadDemo {
+    public static void main(String[] args) {
+        Thread t = Thread.currentThread();
+
+        System.out.println("Thread Name: " + t.getName());
+        System.out.println("Thread Priority: " + t.getPriority());
+        System.out.println("Thread State: " + t.getState());
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Thread Name: main
+Thread Priority: 5
+Thread State: RUNNABLE</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 7: Create a Thread by Extending Thread Class</summary>
+<p class="description">Create and execute a thread by extending the Thread class.</p>
+<h3>Java Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+public class ThreadDemo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        t.start();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Thread is running</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 8: Create a Thread Using Runnable Interface</summary>
+<p class="description">Create a thread by implementing the Runnable interface.</p>
+<h3>Java Program</h3>
+<pre><code>class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Runnable thread is running");
+    }
+}
+
+public class RunnableDemo {
+    public static void main(String[] args) {
+        MyRunnable obj = new MyRunnable();
+
+        Thread t = new Thread(obj);
+        t.start();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Runnable thread is running</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 9: Create Multiple Threads</summary>
+<p class="description">Create multiple threads and demonstrate their concurrent execution.</p>
+<h3>Java Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 3; i++) {
+            System.out.println(getName() + " : " + i);
+        }
+    }
+}
+
+public class MultipleThreads {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+
+        t1.start();
+        t2.start();
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Thread-0 : 1
+Thread-1 : 1
+Thread-0 : 2
+Thread-1 : 2
+Thread-0 : 3
+Thread-1 : 3
+
+Note: The order may change during execution.</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 10: Demonstrate isAlive() Method</summary>
+<p class="description">Use isAlive() to check whether a thread is running.</p>
+<h3>Java Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+public class IsAliveDemo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+
+        System.out.println("Before start: " + t.isAlive());
+
+        t.start();
+
+        System.out.println("After start: " + t.isAlive());
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Before start: false
+After start: true
+Thread is running</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 11: Demonstrate join() Method</summary>
+<p class="description">Use join() to make one thread wait until another thread completes.</p>
+<h3>Java Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 3; i++) {
+            System.out.println("Child Thread: " + i);
+        }
+    }
+}
+
+public class JoinDemo {
+    public static void main(String[] args) throws InterruptedException {
+        MyThread t = new MyThread();
+
+        t.start();
+        t.join();
+
+        System.out.println("Main Thread continues");
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Child Thread: 1
+Child Thread: 2
+Child Thread: 3
+Main Thread continues</pre></div>
+</details>
+
+<details class="experiment">
+<summary>Program 12: Use isAlive() and join() with Multiple Threads</summary>
+<p class="description">Create multiple threads and use isAlive() and join() to control their execution order.</p>
+<h3>Java Program</h3>
+<pre><code>class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 3; i++) {
+            System.out.println(getName() + " : " + i);
+        }
+    }
+}
+
+public class ThreadControlDemo {
+    public static void main(String[] args)
+            throws InterruptedException {
+
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+
+        t1.start();
+        t2.start();
+
+        System.out.println("Thread 1 alive: " + t1.isAlive());
+        System.out.println("Thread 2 alive: " + t2.isAlive());
+
+        t1.join();
+        t2.join();
+
+        System.out.println("Thread 1 alive: " + t1.isAlive());
+        System.out.println("Thread 2 alive: " + t2.isAlive());
+
+        System.out.println("Main thread completed");
+    }
+}</code></pre>
+<h3>Output</h3>
+<div class="output"><pre>Thread 1 alive: true
+Thread 2 alive: true
+Thread-0 : 1
+Thread-0 : 2
+Thread-0 : 3
+Thread-1 : 1
+Thread-1 : 2
+Thread-1 : 3
+Thread 1 alive: false
+Thread 2 alive: false
+Main thread completed
+
+Note: Thread execution order may vary.</pre></div>
+</details>
+
+</main>
+
+<footer>
+    Week 12 · Java Lab Academic Registry
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 10 - Exception Handling and Byte Streams</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+body{font-family:Arial,sans-serif;line-height:1.6;padding:15px}
+main{max-width:1000px;margin:auto}
+h1,h2,h3{color:#234b38}
+.experiment{background:#fff;border:1px solid #d9dfd5;border-radius:10px;margin:18px 0;overflow:hidden}
+.experiment summary{background:#f3f0df;padding:15px;font-weight:bold;cursor:pointer;color:#234b38}
+.content{padding:15px}
+pre{background:#17251e;color:#f5f5ed;padding:15px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
+code{font-family:Consolas,monospace;font-size:13px}
+.output{background:#f1f5ef;color:#26382b}
+.note{color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Week 10: Exception Handling and Byte Streams</h1>
+
+<!-- 1 -->
+<details class="experiment">
+<summary>Experiment 1: Exception Handling Using try and catch</summary>
+<div class="content">
+<p><b>Aim:</b> To handle division by zero using try and catch.</p>
+<h3>Program</h3>
+<pre><code>public class DivideDemo {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+
+        try {
+            int result = a / b;
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+        }
+
+        System.out.println("Program continues");
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Cannot divide by zero
+Program continues</code></pre>
+</div>
+</details>
+
+<!-- 2 -->
+<details class="experiment">
+<summary>Experiment 2: Demonstrating Different Types of Exceptions</summary>
+<div class="content">
+<p><b>Aim:</b> To demonstrate ArithmeticException, ArrayIndexOutOfBoundsException and NullPointerException.</p>
+<h3>Program</h3>
+<pre><code>public class ExceptionTypes {
+    public static void main(String[] args) {
+
+        try {
+            int a = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Exception");
+        }
+
+        try {
+            int arr[] = {10, 20, 30};
+            System.out.println(arr[5]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index Exception");
+        }
+
+        try {
+            String str = null;
+            System.out.println(str.length());
+        } catch (NullPointerException e) {
+            System.out.println("Null Pointer Exception");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Arithmetic Exception
+Array Index Exception
+Null Pointer Exception</code></pre>
+</div>
+</details>
+
+<!-- 3 -->
+<details class="experiment">
+<summary>Experiment 3: Uncaught Exception</summary>
+<div class="content">
+<p><b>Aim:</b> To demonstrate an uncaught exception and observe the JVM error message.</p>
+<h3>Program</h3>
+<pre><code>public class UncaughtDemo {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+
+        int result = a / b;
+
+        System.out.println("Result: " + result);
+    }
+}</code></pre>
+<h3>Sample Output</h3>
+<pre class="output"><code>Exception in thread "main" java.lang.ArithmeticException: / by zero
+    at UncaughtDemo.main(UncaughtDemo.java:6)</code></pre>
+<p class="note">The line number in the error message may differ depending on your code.</p>
+</div>
+</details>
+
+<!-- 4 -->
+<details class="experiment">
+<summary>Experiment 4: Multiple Catch Clauses</summary>
+<div class="content">
+<p><b>Aim:</b> To handle multiple exceptions using multiple catch blocks.</p>
+<h3>Program</h3>
+<pre><code>public class MultipleCatch {
+    public static void main(String[] args) {
+        try {
+            int arr[] = {10, 20, 30};
+            int result = 10 / 0;
+            System.out.println(arr[5]);
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Exception");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index Exception");
+        } catch (Exception e) {
+            System.out.println("General Exception");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Arithmetic Exception</code></pre>
+</div>
+</details>
+
+<!-- 5 -->
+<details class="experiment">
+<summary>Experiment 5: Use of throw Statement</summary>
+<div class="content">
+<p><b>Aim:</b> To generate an exception explicitly using the throw statement.</p>
+<h3>Program</h3>
+<pre><code>public class ThrowDemo {
+    public static void main(String[] args) {
+        int age = 15;
+
+        try {
+            if (age < 18) {
+                throw new ArithmeticException("Not eligible");
+            }
+
+            System.out.println("Eligible to vote");
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Not eligible</code></pre>
+</div>
+</details>
+
+<!-- 6 -->
+<details class="experiment">
+<summary>Experiment 6: Use of throws Keyword</summary>
+<div class="content">
+<p><b>Aim:</b> To demonstrate exception propagation using the throws keyword.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class ThrowsDemo {
+
+    static void readFile() throws IOException {
+        FileReader f = new FileReader("data.txt");
+        f.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            readFile();
+            System.out.println("File read successfully");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>File not found</code></pre>
+<p class="note">This sample output assumes data.txt is not present in the program's working folder.</p>
+</div>
+</details>
+
+<!-- 7 -->
+<details class="experiment">
+<summary>Experiment 7: Use of finally Block</summary>
+<div class="content">
+<p><b>Aim:</b> To demonstrate that the finally block executes whether an exception occurs or not.</p>
+<h3>Program</h3>
+<pre><code>public class FinallyDemo {
+    public static void main(String[] args) {
+        try {
+            int result = 10 / 0;
+            System.out.println(result);
+        } catch (ArithmeticException e) {
+            System.out.println("Exception handled");
+        } finally {
+            System.out.println("Finally block executed");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Exception handled
+Finally block executed</code></pre>
+</div>
+</details>
+
+<!-- 8 -->
+<details class="experiment">
+<summary>Experiment 8: User-Defined Exception</summary>
+<div class="content">
+<p><b>Aim:</b> To create a user-defined exception by extending the Exception class.</p>
+<h3>Program</h3>
+<pre><code>class MyException extends Exception {
+    MyException(String message) {
+        super(message);
+    }
+}
+
+public class CustomExceptionDemo {
+    public static void main(String[] args) {
+        int age = 16;
+
+        try {
+            if (age < 18) {
+                throw new MyException("Age is below 18");
+            }
+
+            System.out.println("Eligible");
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Age is below 18</code></pre>
+</div>
+</details>
+
+<!-- 9 -->
+<details class="experiment">
+<summary>Experiment 9: Student Marks Validation Using Custom Exception</summary>
+<div class="content">
+<p><b>Aim:</b> To validate student marks and throw a custom exception when marks are outside the valid range.</p>
+<h3>Program</h3>
+<pre><code>class InvalidMarksException extends Exception {
+    InvalidMarksException(String message) {
+        super(message);
+    }
+}
+
+public class MarksValidation {
+    public static void main(String[] args) {
+        int marks = 120;
+
+        try {
+            if (marks < 0 || marks > 100) {
+                throw new InvalidMarksException("Invalid marks");
+            }
+
+            System.out.println("Valid marks: " + marks);
+        } catch (InvalidMarksException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Invalid marks</code></pre>
+</div>
+</details>
+
+<!-- 10 -->
+<details class="experiment">
+<summary>Experiment 10: Combining Exception Handling Keywords</summary>
+<div class="content">
+<p><b>Aim:</b> To combine try, multiple catch, throw, throws and finally in one application.</p>
+<h3>Program</h3>
+<pre><code>public class CombinedDemo {
+
+    static void checkNumber(int n) throws Exception {
+        if (n < 0) {
+            throw new Exception("Negative number");
+        }
+
+        System.out.println("Number: " + n);
+    }
+
+    public static void main(String[] args) {
+        try {
+            checkNumber(-5);
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Exception");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Finally block executed");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Negative number
+Finally block executed</code></pre>
+</div>
+</details>
+
+<h2>Byte Stream Experiments</h2>
+
+<!-- 11 -->
+<details class="experiment">
+<summary>Experiment 11: InputStream and OutputStream</summary>
+<div class="content">
+<p><b>Aim:</b> To demonstrate reading and writing bytes using InputStream and OutputStream.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class ByteStreamDemo {
+    public static void main(String[] args) throws IOException {
+
+        byte data[] = {65, 66, 67, 68};
+
+        InputStream in = new ByteArrayInputStream(data);
+        OutputStream out = new ByteArrayOutputStream();
+
+        int ch;
+
+        while ((ch = in.read()) != -1) {
+            out.write(ch);
+        }
+
+        System.out.println("Output: " + out.toString());
+
+        in.close();
+        out.close();
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Output: ABCD</code></pre>
+</div>
+</details>
+
+<!-- 12 -->
+<details class="experiment">
+<summary>Experiment 12: Read a File Using FileInputStream</summary>
+<div class="content">
+<p><b>Aim:</b> To read file contents byte-by-byte using FileInputStream.</p>
+<p class="note">Create a file named input.txt containing: Hello Java</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class ReadByteFile {
+    public static void main(String[] args) {
+        try {
+            FileInputStream fin =
+                new FileInputStream("input.txt");
+
+            int ch;
+
+            while ((ch = fin.read()) != -1) {
+                System.out.print((char) ch);
+            }
+
+            fin.close();
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Hello Java</code></pre>
+</div>
+</details>
+
+<!-- 13 -->
+<details class="experiment">
+<summary>Experiment 13: Write Data Using FileOutputStream</summary>
+<div class="content">
+<p><b>Aim:</b> To write data into a file and verify its contents.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class WriteByteFile {
+    public static void main(String[] args) {
+        try {
+            FileOutputStream fout =
+                new FileOutputStream("output.txt");
+
+            String text = "Welcome to Java";
+
+            fout.write(text.getBytes());
+            fout.close();
+
+            System.out.println("Data written successfully");
+
+            FileInputStream fin =
+                new FileInputStream("output.txt");
+
+            int ch;
+
+            System.out.print("File contents: ");
+
+            while ((ch = fin.read()) != -1) {
+                System.out.print((char) ch);
+            }
+
+            fin.close();
+
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Data written successfully
+File contents: Welcome to Java</code></pre>
+</div>
+</details>
+
+<!-- 14 -->
+<details class="experiment">
+<summary>Experiment 14: Copy Contents from One File to Another</summary>
+<div class="content">
+<p><b>Aim:</b> To copy file contents using FileInputStream and FileOutputStream.</p>
+<p class="note">Create input.txt containing: Java Programming</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class CopyFile {
+    public static void main(String[] args) {
+        try {
+            FileInputStream fin =
+                new FileInputStream("input.txt");
+
+            FileOutputStream fout =
+                new FileOutputStream("copy.txt");
+
+            int ch;
+
+            while ((ch = fin.read()) != -1) {
+                fout.write(ch);
+            }
+
+            fin.close();
+            fout.close();
+
+            System.out.println("File copied successfully");
+
+        } catch (IOException e) {
+            System.out.println("File error");
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>File copied successfully</code></pre>
+</div>
+</details>
+
+<!-- 15 -->
+<details class="experiment">
+<summary>Experiment 15: Copy an Image Using Byte Streams</summary>
+<div class="content">
+<p><b>Aim:</b> To copy an image using byte streams and handle FileNotFoundException and IOException.</p>
+<p class="note">Place an image named source.jpg in the same folder as the Java program.</p>
+<h3>Program</h3>
+<pre><code>import java.io.*;
+
+public class CopyImage {
+    public static void main(String[] args) {
+        FileInputStream fin = null;
+        FileOutputStream fout = null;
+
+        try {
+            fin = new FileInputStream("source.jpg");
+            fout = new FileOutputStream("copy.jpg");
+
+            int ch;
+
+            while ((ch = fin.read()) != -1) {
+                fout.write(ch);
+            }
+
+            System.out.println("Image copied successfully");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Image file not found");
+        } catch (IOException e) {
+            System.out.println("I/O Error");
+        } finally {
+            try {
+                if (fin != null) {
+                    fin.close();
+                }
+
+                if (fout != null) {
+                    fout.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error closing file");
+            }
+        }
+    }
+}</code></pre>
+<h3>Output</h3>
+<pre class="output"><code>Image copied successfully</code></pre>
+<p class="note">The output assumes source.jpg exists in the program's working folder.</p>
+</div>
+</details>
+
+</main>
+</body>
+</html>
